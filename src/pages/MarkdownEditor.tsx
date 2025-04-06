@@ -1,56 +1,50 @@
-import { useState, useEffect, useRef } from "react";
+// src/components/MarkdownEditor.jsx
+import { useEffect, useRef, useState } from "react";
 import { Crepe } from "@milkdown/crepe";
-import "@milkdown/crepe/theme/common/style.css"; // Default theme
-import "@milkdown/crepe/theme/nord.css"; // Light theme
+import "@milkdown/crepe/theme/common/style.css";
+import "@milkdown/crepe/theme/nord.css";
 import { Save } from "lucide-react";
 
-// Import Roboto font
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+const crepeInstance = {
+  editor: null as Crepe | null,
+  initialized: false,
+};
 const MarkdownEditor = () => {
-  // State
-  const [content, setContent] = useState(
-    localStorage.getItem("markdownContent") ||
-      "# Welcome to Your Study Editor\n\nWrite some **Markdown**, solve equations with LaTeX:\n\n$$x^2 + 2x + 1 = 0$$\n\nOr add code:\n\n```javascript\nconsole.log('Hello, Study Buddy!');\n```"
-  );
   const editorRef = useRef(null);
-  const initialized = useRef(false);
+  const [content, setContent] = useState(
+    localStorage.getItem("markdownContent") || `# Hello`
+  );
 
-  // Initialize Milkdown Editor
   useEffect(() => {
-    const initEditor = async () => {
-      if (editorRef.current && !initialized.current) {
-        const editor = await new Crepe({
-          root: editorRef.current, // DOM element
-          defaultValue: content, // Initial Markdown content
-          features: {
-            math: true, // Enable LaTeX via KaTeX
-            prism: true, // Enable code highlighting via Prism
-          },
-          style: {
-            typography: {
-              fontFamily: '"Roboto", sans-serif',
-            },
-          },
-        }).create();
-
-        // Listen for content changes
-        editor.editor.on("update", (ctx) => {
-          const markdown = ctx.getMarkdown();
+    if (editorRef.current && !crepeInstance.initialized) {
+      const crepe = new Crepe({
+        root: editorRef.current,
+        defaultValue: content,
+        features: {
+          math: true,
+          katex: true,
+          prism: true,
+        },
+        markdownUpdated: (markdown) => {
           setContent(markdown);
-          localStorage.setItem("markdownContent", markdown); // Autosave
-        });
+          localStorage.setItem("markdownContent", markdown);
+        },
+      });
 
-        initialized.current = true; // Prevent re-initialization
-      }
-    };
+      crepe.create().then(() => {
+        crepeInstance.editor = crepe;
+        crepeInstance.initialized = true;
+        console.log("Editor initialized");
+      });
+    }
+  }, []);
 
-    initEditor();
-  }, []); // Empty dependency array to run once on mount
 
-  // Manual Save
+
   const handleSave = () => {
     localStorage.setItem("markdownContent", content);
     alert("Saved to localStorage!");
@@ -70,7 +64,7 @@ const MarkdownEditor = () => {
         </button>
       </div>
 
-      {/* Editor */}
+      {/* Editor container */}
       <div
         ref={editorRef}
         className="flex-1 p-4 bg-white m-4 rounded-lg shadow-md overflow-auto border border-gray-200 font-roboto"

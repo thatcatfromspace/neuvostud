@@ -12,7 +12,7 @@
   "dependencies": {
     "@fontsource/roboto": "^5.2.5",
     "@hookform/resolvers": "^5.0.1",
-    "@milkdown/crepe": "^7.7.0",
+    "@milkdown/crepe": "^7.8.0",
     "@milkdown/kit": "^7.7.0",
     "@milkdown/plugin-math": "^7.5.9",
     "@milkdown/plugin-prism": "^7.7.0",
