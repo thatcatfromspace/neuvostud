@@ -1,0 +1,48 @@
+{
+  "name": "neuvostud",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/roboto": "^5.2.5",
+    "@hookform/resolvers": "^5.0.1",
+    "@milkdown/crepe": "^7.7.0",
+    "@milkdown/kit": "^7.7.0",
+    "@milkdown/plugin-math": "^7.5.9",
+    "@milkdown/plugin-prism": "^7.7.0",
+    "@tanstack/react-query": "^5.71.10",
+    "axios": "^1.8.4",
+    "framer-motion": "^12.6.3",
+    "idb": "^8.0.2",
+    "katex": "^0.16.21",
+    "lucide-react": "^0.487.0",
+    "motion": "^12.6.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.55.0",
+    "react-pdf": "^9.2.1",
+    "react-router-dom": "^7.4.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@tailwindcss/vite": "^4.1.2",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "tailwindcss": "^4.1.2",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1",
+    "vite": "^6.2.0"
+  }
+}
